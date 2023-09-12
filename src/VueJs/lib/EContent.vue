@@ -18,20 +18,20 @@ const props = defineProps({
   tag: {type: String, required: true},
   isAdmin: {type: Boolean},
   url: {type: String, required: true},
-  key: {type: String, required: true},
+  keyId: {type: String, required: true},
 })
 
 const value = ref('')
 const editable = ref(false)
 onMounted(() => {
-  getContent(props.url, props.key).then(res => {
+  getContent(props.url, props.keyId).then(res => {
     // @ts-ignore
     value.value = res?.data?.result?.data
   })
 })
 
 function updateContent(value: any) {
-  addContent(props.url, props.key, value.target.value)
+  addContent(props.url, props.keyId, value.target.value)
 }
 </script>
 <style>
