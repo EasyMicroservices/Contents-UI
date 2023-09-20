@@ -1,13 +1,13 @@
 <template>
-  <div class="EContent">
+  <span class="EContent">
     <custom-tag :tag="tag">
-      {{ value }}
-      <button v-if="isAdmin" @click="editable = !editable">{{ editable ? 'بستن' : 'ویرایش'}}</button>
+      <span v-html="value"></span>
+      <button v-if="isAdmin" @click="editable = !editable">{{ editable ? 'Close' : 'Edit' }}</button>
       <div v-if="editable && isAdmin" class="EContent--input">
-        <input v-model="value" @input="updateContent">
+        <textarea v-model="value" @input="updateContent"/>
       </div>
     </custom-tag>
-  </div>
+  </span>
 </template>
 <script setup lang="ts">
 import {onMounted, ref} from "vue";
@@ -46,7 +46,8 @@ function updateContent(value: any) {
     z-index: 9999;
   }
 }
-.EContent--input{
+
+.EContent--input {
   position: absolute;
   left: -20px;
   bottom: -50px;
