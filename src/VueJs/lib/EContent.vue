@@ -2,9 +2,10 @@
   <span class="EContent">
     <custom-tag :tag="tag">
       <span v-html="value"></span>
-      <button v-if="isAdmin" @click="editable = !editable">{{ editable ? 'Close' : 'Edit' }}</button>
+      <button v-if="isAdmin && !editable" @click="editable = !editable">Edit</button>
+      <button v-if="isAdmin && editable" @click="updateContent">Save</button>
       <div v-if="editable && isAdmin" class="EContent--input">
-        <textarea v-model="value" @input="updateContent"/>
+        <textarea v-model="value"/>
       </div>
     </custom-tag>
   </span>
@@ -30,28 +31,9 @@ onMounted(() => {
   })
 })
 
-function updateContent(value: any) {
-  addContent(props.url, props.keyId, value.target.value)
+function updateContent() {
+  console.log(value.value)
+  editable.value = !editable
+  addContent(props.url, props.keyId, value.value)
 }
 </script>
-<style>
-.EContent {
-  position: relative;
-
-  button {
-    font-size: 10px;
-    position: absolute;
-    left: -20px;
-    bottom: -20px;
-    z-index: 9999;
-  }
-}
-
-.EContent--input {
-  position: absolute;
-  left: -20px;
-  bottom: -50px;
-  z-index: 9998;
-
-}
-</style>
